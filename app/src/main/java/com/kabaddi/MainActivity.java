@@ -6,11 +6,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int teamAScore=0, teamBScore=0;
     private TextView scoreTeamATT,scoreTeamBTT;
+
+    private GameViewModel viewModel;
 
 //    private Button teamAZero,teamAOne,teamATwo,teamAThree,teamAFour,teamAFive,teamASix,teamASeven,teamAEight,teamANine,teamBZero,teamBOne,teamBTwo,teamBThree,teamBFour,teamBFive,teamBSix,teamBSeven,teamBEight,teamBNine;
 //    private Button resetButton;
@@ -19,9 +21,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        viewModel = ViewModelProviders.of(this).get(GameViewModel.class);
 
         scoreTeamATT=findViewById(R.id.scoreTeamA);
+        displayScoreA(""+viewModel.getTeamAScore());
         scoreTeamBTT=findViewById(R.id.scoreTeamB);
+        displayScoreB(""+viewModel.getTeamBScore());
 
 //        teamAZero=findViewById(R.id.teamAZero);
 //        teamAOne=findViewById(R.id.teamAOne);
@@ -60,73 +65,73 @@ public class MainActivity extends AppCompatActivity {
             case R.id.teamAZero:
                 break;
             case R.id.teamAOne:
-                teamAScore = teamAScore + 1;
+                viewModel.incTeamAScore(1);
                 break;
             case R.id.teamATwo:
-                teamAScore = teamAScore + 2;
+                viewModel.incTeamAScore(2);
                 break;
             case R.id.teamAThree:
-                teamAScore = teamAScore + 3;
+                viewModel.incTeamAScore(3);
                 break;
             case R.id.teamAFour:
-                teamAScore = teamAScore + 4;
+                viewModel.incTeamAScore(4);
                 break;
             case R.id.teamAFive:
-                teamAScore = teamAScore + 5;
+                viewModel.incTeamAScore(5);
                 break;
             case R.id.teamASix:
-                teamAScore = teamAScore + 6;
+                viewModel.incTeamAScore(6);
                 break;
             case R.id.teamASeven:
-                teamAScore = teamAScore + 7;
+                viewModel.incTeamAScore(7);
                 break;
             case R.id.teamAEight:
-                teamAScore = teamAScore + 8;
+                viewModel.incTeamAScore(8);
                 break;
             case R.id.teamANine:
-                teamAScore = teamAScore + 9;
+                viewModel.incTeamAScore(9);
                 break;
             case R.id.teamBZero:
                 break;
             case R.id.teamBOne:
-                teamBScore = teamBScore + 1;
+                viewModel.incTeamBScore(1);
                 break;
             case R.id.teamBTwo:
-                teamBScore = teamBScore + 2;
+                viewModel.incTeamBScore(2);
                 break;
             case R.id.teamBThree:
-                teamBScore = teamBScore + 3;
+                viewModel.incTeamBScore(3);
                 break;
             case R.id.teamBFour:
-                teamBScore = teamBScore + 4;
+                viewModel.incTeamBScore(4);
                 break;
             case R.id.teamBFive:
-                teamBScore = teamBScore + 5;
+                viewModel.incTeamBScore(5);
                 break;
             case R.id.teamBSix:
-                teamBScore = teamBScore + 6;
+                viewModel.incTeamBScore(6);
                 break;
             case R.id.teamBSeven:
-                teamBScore = teamBScore + 7;
+                viewModel.incTeamBScore(7);
                 break;
             case R.id.teamBEight:
-                teamBScore = teamBScore + 8;
+                viewModel.incTeamBScore(8);
                 break;
             case R.id.teamBNine:
-                teamBScore = teamBScore + 9;
+                viewModel.incTeamBScore(9);
 
                 break;
-             case R.id.reset:
-                teamAScore = 0;
-                teamBScore = 0;
-
+             case R.id.reset: {
+                 viewModel.setTeamAScore(0);
+                 viewModel.setTeamBScore(0);
+             }
                 break;
 
             default:
                 throw new RuntimeException("Unknow button ID");
         }
-        displayScoreA(""+teamAScore);
-        displayScoreB(""+teamBScore);
+        displayScoreA(""+viewModel.getTeamAScore());
+        displayScoreB(""+viewModel.getTeamBScore());
     }
 
 
